@@ -49,7 +49,7 @@ char* ReverCode(const char* str, int len) {
     for (int i = 0; i < len; ++i) {
         encodedStr[i] = str[len - i - 1];
     }
-    encodedStr[len] = '\0'; // Null-terminate the string
+    encodedStr[len] = '\0'; 
     return encodedStr;
 }
 
