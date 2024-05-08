@@ -65,6 +65,9 @@ public:
         size++;
     }
 
+    void insertAt(const T& elem, size_t index){
+        arr[index] = elem;
+    }
 
     void pop_front() {
         if (size != 0){
@@ -82,6 +85,9 @@ public:
         }
     }
 
+    size_t get_size() const {
+        return size;
+    }
 
     size_t get_capacity() const {
         return capacity;
@@ -94,7 +100,20 @@ public:
         return arr[index];
     }
 
-    void print(){
+    void Concat(const DynArray<T>* side_array){
+        if (size + side_array->get_size() >= capacity){
+            while (size + side_array->get_size() >= capacity){
+                resize();
+            }
+        }
+
+        for(int i = 0; i < side_array->get_size(); i++){
+            arr[i + size] = side_array.get(i);
+        }
+
+    }
+
+    void print() const{
         for (int i = 0; i < size; i++){
             std::cout << arr[i] << " ";
         }
@@ -192,7 +211,7 @@ public:
     }
 };
 
-
+/*
 int main(){
     DynArray<int> dar1;
     DynArray<int> dar2;
@@ -216,10 +235,11 @@ int main(){
     dar11 = dar11.push_back(2);
     dar11 = dar11.push_forward(0);
     
-    dar1.print();
+    dar11.print();
 
     std::cout << dar11.get(1) << "\n";
     ImmutableDynArray<int> dar22 = dar11.push_back(3);
     dar11.print();
     dar22.print();  
 }
+*/
