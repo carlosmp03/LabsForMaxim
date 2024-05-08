@@ -9,6 +9,8 @@ public:
     virtual void Prepend(const T& elem) = 0;
     virtual void insert(int index, const T& elem) = 0;
     virtual void insertAt(int index, const T& elem) = 0;
+    virtual void pop_back() = 0;
+    virtual void pop_front() = 0;
     virtual Sequence<T>* Concat(const Sequence<T>* list) const = 0;
     virtual Sequence<T>* SubSeq(int l, int r) const = 0;
     virtual void Print() const = 0;
@@ -29,6 +31,14 @@ public:
     }
     void Prepend(const T& elem) override {
         array.push_forward(elem);
+    }
+
+    void pop_front() override {
+        array.pop_front();
+    }
+
+    void pop_back() override {
+        array.pop_back();
     }
 
     int GetLength() const override {
@@ -97,6 +107,14 @@ public:
         list.prepend(elem);
     }
 
+    void pop_front() override {
+        list.pop_front();
+    }
+
+    void pop_back() override {
+        list.pop_back();
+    }
+
     void insert(int index, const T& elem) override {
         list.insert(index, elem);
     }
@@ -132,7 +150,7 @@ public:
     }
 };
 
-
+/*
 int main() {
     // Create a ListSequence and populate it
     ListSequence<int> listSeq;
@@ -191,3 +209,4 @@ int main() {
 
     return 0;
 }
+*/
