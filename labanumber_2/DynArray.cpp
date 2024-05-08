@@ -74,8 +74,8 @@ public:
             for (int i = 1; i < size; i++){
                 arr[i-1] = arr[i];
             }
+            size--;
         }
-        size--;
     }
 
 
@@ -108,8 +108,9 @@ public:
         }
 
         for(int i = 0; i < side_array->get_size(); i++){
-            arr[i + size] = side_array.get(i);
+            arr[i + size] = side_array->get(i);
         }
+        size += side_array->get_size();
 
     }
 
@@ -143,9 +144,11 @@ private:
 public:
     ImmutableDynArray() : capacity(10), size(0), arr(new T[capacity]) {}
 
+    /*
     ~ImmutableDynArray() {
         delete[] arr;
     }
+    */
 
     ImmutableDynArray(const ImmutableDynArray& other) : capacity(other.capacity), size(other.size), arr(other.copy_array(other.capacity)) {}
 
