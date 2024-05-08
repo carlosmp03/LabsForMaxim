@@ -106,4 +106,103 @@ public:
         }
         std::cout << "nullptr\n";
     }
+
+    void Concat(const LinkedList<T>* side_list) {
+        for(int i = 0; i < side_list->getSize(); i++){
+            this->append(side_list->get(i));
+        }
+    }
+
+
+    void pop_back() {
+        if (head == nullptr) return;
+        if (head == tail) {
+            delete head;
+            head = tail = nullptr;
+        } else {
+            Node<T>* currentNode = head;
+            while (currentNode->next != tail) {
+                currentNode = currentNode->next;
+            }
+            delete tail;
+            tail = currentNode;
+            tail->next = nullptr;
+        }
+        len--;
+    }
+
+    void pop_front() {
+        if (head == nullptr) return;
+        Node<T>* temp = head;
+        head = head->next;
+        if (head == nullptr) tail = nullptr;
+        delete temp;
+        len--;
+    }
+
+    LinkedList<T>* ImmutableConcat(const LinkedList<T>* side_list) const {
+        LinkedList<T>* result = new LinkedList<T>();
+        for(int i = 0; i < len; i++){
+            result->append(this->get(i));
+        } 
+        for(int i = 0; i < side_list->getSize(); i++){
+            result->append(side_list->get(i));
+        }
+        return result;
+    }
+
+    LinkedList<T>* GetSubList(int l, int r) const {
+        if(l < 0 || r >= len || r - l < 0){
+            throw std::out_of_range("Index out of range.");
+        }
+        LinkedList<T>* res = new LinkedList<T>();
+        Node<T>* curNode = head;
+        int count = 0;
+        
+        while (count != r+1){
+            if (count >= l && count <= r){
+                res->append(curNode->elem);
+                curNode = curNode->next;
+            } 
+            else{
+                curNode = curNode->next;
+            }
+            count++;
+        }
+        
+        return res;
+    } 
+
+    LinkedList<T>* ImmutableAppend(const T& elem) const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->append(elem);
+        return res;
+    }
+
+    LinkedList<T>* ImmutablePrepend(const T& elem) const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->prepend(elem);
+        return res;
+    }
+
+    LinkedList<T>* ImmutableInsert(size_t index, const T& elem) const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->insert(index, elem);
+        return res;
+    } 
+    LinkedList<T>* ImmutableInsertAt(size_t index, const T& elem) const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->insertAt(index, elem);
+    }
+
+    LinkedList<T>* ImmutablePop_back() const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->pop_back();
+        return res;
+    }
+    LinkedList<T>* ImmutablePop_front() const {
+        LinkedList<T>* res = new LinkedList<T>(*this);
+        res->pop_front();
+        return res;
+    }
 };
