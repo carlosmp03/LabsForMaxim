@@ -3,6 +3,33 @@
 #include <string>
 #include <cassert>
 #include <complex>
+#include <cmath>
+
+template <typename T>
+T modulus(const std::complex<T>& c) {
+    return std::abs(c);
+}
+
+template <typename T>
+bool operator<(const std::complex<T>& lhs, const std::complex<T>& rhs) {
+    return modulus(lhs) < modulus(rhs);
+}
+
+template <typename T>
+bool operator>(const std::complex<T>& lhs, const std::complex<T>& rhs) {
+    return modulus(lhs) > modulus(rhs);
+}
+
+template <typename T>
+bool operator<=(const std::complex<T>& lhs, const std::complex<T>& rhs) {
+    return modulus(lhs) <= modulus(rhs);
+}
+
+template <typename T>
+bool operator>=(const std::complex<T>& lhs, const std::complex<T>& rhs) {
+    return modulus(lhs) >= modulus(rhs);
+}
+
 
 class Person{
 private:
@@ -67,6 +94,9 @@ public:
 
     node* GetRoot() const {
         return root;
+    }
+    void printRoot() const {
+        std::cout << root->height << std::endl;
     }
     template<typename Func>
     void RootRightLeft(node* node, Func visit) {
@@ -181,6 +211,13 @@ public:
         root = remove(root, key);
     }
 
+    bool contains(node* node, T key){
+        if (node == nullptr) return false;
+        if (node->key == key) return true;
+        else if (node->key < key) return contains(node->left, key);
+        else return contains(node->right, key);
+    }
+
     node* remove(node* p, T key) {
         if (!p) return nullptr;
         if (key < p->key) {
@@ -211,7 +248,7 @@ public:
     }
 };
 
-
+/*
 int main() {
     BinaryTree<Person> tree;
 
@@ -236,3 +273,4 @@ int main() {
 
     return 0;
 }
+*/
